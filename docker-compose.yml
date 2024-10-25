@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  gbh-books-api:
+    build: ./gbh-books-api
+    container_name: gbh-books-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./gbh-books-api:/app
+    environment:
+      - DATABASE_URL=sqlite:///./gbh-books.db
+
+  gbh-books-ui:
+    build: ./gbh-books-ui
+    container_name: gbh-books-ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./gbh-books-ui:/app
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000  # This should point to your API service
+    depends_on:
+      - gbh-books-api
+

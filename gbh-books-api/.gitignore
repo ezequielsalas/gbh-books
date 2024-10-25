@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+app/__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual Environments
+env/
+
+
+# FastAPI specific
+instance/
+app/static/
+
+# Pytest
+.cache/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Environments
+.env
+.env.*
+# VS Code settings
+.vscode/
+
+# IDE
+.idea/
+
+# macOS
+.DS_Store
