@@ -1,23 +1,33 @@
-# Use the official Node.js image as a parent image
-FROM node:18-alpine
+# Use the official Node.js image as the base image
+FROM node:18-alpine AS builder
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the package.json and package-lock.json (if available)
-COPY ./package.json ./package-lock.json /app/
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install the dependencies
-RUN npm install --silent
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the React app to the working directory
-COPY . /app
+# Copy the rest of the application code
+COPY . .
 
-# Build the React app for production
+# Build the Next.js application
 RUN npm run build
 
-# Expose port 3000
-EXPOSE 3000
+# Use a smaller base image for the final stage
+FROM node:18-alpine
 
-# Start the React app
+# Set the working directory
+WORKDIR /app
+
+# Copy the built application from the builder stage
+COPY --from=builder /app ./
+
+# Expose the port the app runs on
+EXPOSE 80
+
+# Command to run the application
 CMD ["npm", "start"]
+

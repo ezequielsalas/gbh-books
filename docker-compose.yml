@@ -12,14 +12,16 @@ services:
       - DATABASE_URL=sqlite:///./gbh-books.db
 
   gbh-books-ui:
-    build: ./gbh-books-ui
+    build:
+      context: ./gbh-books-ui
+      args:
+        - REACT_APP_API_BASE_URL=http://localhost:8000
     container_name: gbh-books-ui
     ports:
       - "3000:3000"
     volumes:
       - ./gbh-books-ui:/app
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000  # This should point to your API service
+      - /app/node_modules
     depends_on:
       - gbh-books-api
 
